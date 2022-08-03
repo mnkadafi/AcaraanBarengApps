@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "39002027159",
+    "project_id": "acaraanbareng",
+    "storage_bucket": "acaraanbareng.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:39002027159:android:ac9e9455e443824829e5d2",
+        "android_client_info": {
+          "package_name": "com.mnkadafi.acaraanbarengapps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "39002027159-ahq88qjl0gv4aen2hhusc3fo53f57it2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBARR6HgWXSgndGaQvH-yt77zS58sDyHk0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "39002027159-ahq88qjl0gv4aen2hhusc3fo53f57it2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
