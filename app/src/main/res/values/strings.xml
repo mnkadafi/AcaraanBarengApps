@@ -18,4 +18,6 @@
     <string name="gender2">Perempuan</string>
     <string name="category">Category</string>
     <string name="status">Status</string>
+    <string name="title_total">Total</string>
+    <string name="phone">Phone</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.mnkadafi.acaraanbarengapps;
+package com.mnkadafi.acaraanbarengapps.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

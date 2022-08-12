@@ -29,6 +29,7 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
+import com.mnkadafi.acaraanbarengapps.model.EventModel;
 import com.squareup.picasso.Picasso;
 
 public class PostActivity extends AppCompatActivity {

@@ -1,7 +1,6 @@
-package com.mnkadafi.acaraanbarengapps;
+package com.mnkadafi.acaraanbarengapps.adapter;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.mnkadafi.acaraanbarengapps.ui.ProfileFragment;
+import com.mnkadafi.acaraanbarengapps.R;
+import com.mnkadafi.acaraanbarengapps.model.EventModel;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -54,6 +52,12 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ProfileH
                 .fit()
                 .centerCrop()
                 .into(holder.imageViewEvent);
+
+        if(eventModel.getIdUser().equals(idUser)) {
+            holder.btnEdit.setVisibility(View.VISIBLE);
+        } else {
+            holder.btnEdit.setVisibility(View.GONE);
+        }
 
         if(mListener != null) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {

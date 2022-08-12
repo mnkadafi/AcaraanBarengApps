@@ -5,7 +5,6 @@ package com.mnkadafi.acaraanbarengapps.ui;
 // Nama : Mochamad Nurkhayal Kadafi
 // Kelas: IF-5
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,12 +24,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.mnkadafi.acaraanbarengapps.BookmarkAdapter;
-import com.mnkadafi.acaraanbarengapps.BookmarkModel;
-import com.mnkadafi.acaraanbarengapps.DetailActivity;
-import com.mnkadafi.acaraanbarengapps.EventModel;
-import com.mnkadafi.acaraanbarengapps.HomeAdapter;
-import com.mnkadafi.acaraanbarengapps.PostActivity;
+import com.mnkadafi.acaraanbarengapps.adapter.BookmarkAdapter;
+import com.mnkadafi.acaraanbarengapps.model.BookmarkModel;
 import com.mnkadafi.acaraanbarengapps.R;
 
 import java.util.ArrayList;
@@ -78,15 +73,6 @@ public class BookmarkFragment extends Fragment {
 
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     BookmarkModel bookmarkModel = postSnapshot.getValue(BookmarkModel.class);
-
-                    String bookmarkId = bookmarkModel.getBookmarkId();
-                    String idUser = bookmarkModel.getIdUser();
-                    String idEvent = bookmarkModel.getIdEvent();
-                    String nameEvent = bookmarkModel.getEventName();
-                    String category = bookmarkModel.getCategory();
-                    String imageUrl = bookmarkModel.getImageUrl();
-
-                    BookmarkModel newData = new BookmarkModel(bookmarkId, idUser, idEvent, nameEvent, category, imageUrl);
                     mItems.add(bookmarkModel);
                 }
 

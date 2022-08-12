@@ -1,4 +1,4 @@
-package com.mnkadafi.acaraanbarengapps;
+package com.mnkadafi.acaraanbarengapps.model;
 
 public class BookmarkModel {
      private String bookmarkId;

@@ -27,8 +27,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mnkadafi.acaraanbarengapps.DetailActivity;
-import com.mnkadafi.acaraanbarengapps.HomeAdapter;
-import com.mnkadafi.acaraanbarengapps.EventModel;
+import com.mnkadafi.acaraanbarengapps.adapter.HomeAdapter;
+import com.mnkadafi.acaraanbarengapps.model.EventModel;
 import com.mnkadafi.acaraanbarengapps.PostActivity;
 import com.mnkadafi.acaraanbarengapps.R;
 

@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,12 +31,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.mnkadafi.acaraanbarengapps.DetailActivity;
-import com.mnkadafi.acaraanbarengapps.EventModel;
-import com.mnkadafi.acaraanbarengapps.HomeAdapter;
+import com.mnkadafi.acaraanbarengapps.model.EventModel;
 import com.mnkadafi.acaraanbarengapps.LoginActivity;
-import com.mnkadafi.acaraanbarengapps.MainActivity;
-import com.mnkadafi.acaraanbarengapps.PostActivity;
-import com.mnkadafi.acaraanbarengapps.ProfileAdapter;
+import com.mnkadafi.acaraanbarengapps.adapter.ProfileAdapter;
 import com.mnkadafi.acaraanbarengapps.R;
 import com.mnkadafi.acaraanbarengapps.User;
 
@@ -58,6 +54,9 @@ public class ProfileFragment extends Fragment {
 
     private List<EventModel> mItems = new ArrayList<>();
     private User userDetail;
+    private TextView tvTotalEvent;
+    private int totalEvent = 0;
+    private int tvTotalSuccess = 0;
 
 
     private TextView tvFullname, tvLocation;
@@ -72,6 +71,7 @@ public class ProfileFragment extends Fragment {
 
         tvFullname = root.findViewById(R.id.tvFullName);
         tvLocation = root.findViewById(R.id.tvLocation);
+        tvTotalEvent = root.findViewById(R.id.tvTotalEvent);
 
         getProfile();
 
@@ -120,8 +120,14 @@ public class ProfileFragment extends Fragment {
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     EventModel eventModel = postSnapshot.getValue(EventModel.class);
                     eventModel.setKey(postSnapshot.getKey());
-                    mItems.add(eventModel);
+
+                    if(eventModel.getIdUser().equals(mAuth.getCurrentUser().getUid())) {
+                        totalEvent += 1;
+                        mItems.add(eventModel);
+                    }
                 }
+
+                tvTotalEvent.setText(String.valueOf(totalEvent));
 
                 mProfileAdapter.notifyDataSetChanged();
             }

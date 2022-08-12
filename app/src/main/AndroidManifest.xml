@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AcaraanBarengApps">
         <activity
+            android:name=".ParticipantActivity"
+            android:exported="false" />
+        <activity
             android:name=".SplashscreenActivity"
             android:exported="false" />
         <activity

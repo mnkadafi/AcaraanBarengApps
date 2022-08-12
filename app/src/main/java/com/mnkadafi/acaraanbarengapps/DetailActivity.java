@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.metrics.Event;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,16 +21,17 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.mnkadafi.acaraanbarengapps.model.BookmarkModel;
+import com.mnkadafi.acaraanbarengapps.model.EventModel;
+import com.mnkadafi.acaraanbarengapps.model.EventParticipantModel;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class DetailActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabaseReference, mBookmarkReference;
     private BookmarkModel bookmarkData;
+    private EventParticipantModel eventParticipantData;
 
     private Button btnBackHome, btnBookmark, btnEdit, btnJoinEvent;
     private ImageView ivEvent;
@@ -89,6 +90,7 @@ public class DetailActivity extends AppCompatActivity {
 
         if(eventDetail.getIdUser().equals(mAuth.getCurrentUser().getUid())) {
             btnJoinEvent.setText("SEE PARTICIPANT");
+            isParticipant = true;
         } else {
             btnEdit.setVisibility(View.GONE);
             if(eventDetail.getStatus().equals("waiting")) {
@@ -98,21 +100,25 @@ public class DetailActivity extends AppCompatActivity {
             }
         }
 
+         btnJoinEvent.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 if(isParticipant) {
+                     Intent detailIntent = new Intent(DetailActivity.this, ParticipantActivity.class);
+                     detailIntent.putExtra("eventDetail", eventDetail);
+                     startActivity(detailIntent);
+                 } else {
+                     if(!eventDetail.getIdUser().equals(mAuth.getCurrentUser().getUid())) {
+                         addJoinEvent(eventDetail.getIdEvent());
+                     }
+                 }
+             }
+         });
+
         btnBookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 addBookmarkEvent(eventDetail);
-            }
-        });
-
-        btnJoinEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(eventDetail.getIdUser() == mAuth.getCurrentUser().getUid()) {
-
-                } else {
-                    addJoinEvent(eventDetail.getIdEvent());
-                }
             }
         });
 
@@ -155,16 +161,16 @@ public class DetailActivity extends AppCompatActivity {
 
     private void checkParticipant(String eventId) {
         String userId = mAuth.getCurrentUser().getUid();
-        DatabaseReference dataBookmarkEvent = FirebaseDatabase.getInstance().getReference("EventParticipant");
-        dataBookmarkEvent.orderByChild("idUser").equalTo(userId);
-        dataBookmarkEvent.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference dataEventParticipant = FirebaseDatabase.getInstance().getReference("EventParticipant");
+        dataEventParticipant.orderByChild("idUser").equalTo(userId);
+        dataEventParticipant.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()) {
                     for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                        BookmarkModel detailBookmark = postSnapshot.getValue(BookmarkModel.class);
-                        if(detailBookmark.getIdEvent().equals(eventId)) {
-                            bookmarkData = detailBookmark;
+                        EventParticipantModel detailEventParticipant = postSnapshot.getValue(EventParticipantModel.class);
+                        if(detailEventParticipant.getIdEvent().equals(eventId) && detailEventParticipant.getIdUser().equals(userId)) {
+                            eventParticipantData = detailEventParticipant;
 
                             btnJoinEvent.setText("SEE PARTICIPANT");
                             isParticipant = true;
