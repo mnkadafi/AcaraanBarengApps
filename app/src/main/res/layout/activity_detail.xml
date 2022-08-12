@@ -63,7 +63,7 @@
                 android:background="@drawable/round_outline"
                 android:clipToOutline="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/bromo" />
+                android:src="@drawable/blank_img" />
 
             <TableLayout
                 android:layout_width="match_parent"

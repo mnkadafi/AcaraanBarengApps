@@ -82,6 +82,8 @@ public class ParticipantActivity extends AppCompatActivity {
         mDatabaseEventParticipant.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                mList.clear();
+
                 if(snapshot.exists()) {
                     for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                         EventParticipantModel eventParticipantModel = postSnapshot.getValue(EventParticipantModel.class);
@@ -92,16 +94,11 @@ public class ParticipantActivity extends AppCompatActivity {
                                 if(snapshots.exists()) {
                                     for (DataSnapshot postSnapshots : snapshots.getChildren()) {
                                         User userList = postSnapshots.getValue(User.class);
-//                                        String getUserId = postSnapshots.child("idUser").getValue(String.class);
-//                                        String getFullName = postSnapshots.child("fullName").getValue(String.class);
-//                                        String getGender = postSnapshots.child("gender").getValue(String.class);
-//                                        String getLocation = postSnapshots.child("location").getValue(String.class);
-//                                        String getPhone = postSnapshots.child("phone").getValue(String.class);
-//                                        String getEmail = postSnapshots.child("email").getValue(String.class);
-//                                        String getPassword = postSnapshots.child("password").getValue(String.class);
 
                                         if(eventParticipantModel.getIdUser().equals(userList.getIdUser())) {
-                                            mList.add(userList);;
+                                            if(!mList.contains(userList.getIdUser())) {
+                                                mList.add(userList);
+                                            }
                                         }
                                     }
 

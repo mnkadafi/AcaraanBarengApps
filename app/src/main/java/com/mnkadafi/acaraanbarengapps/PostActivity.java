@@ -30,13 +30,14 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.mnkadafi.acaraanbarengapps.model.EventModel;
+import com.mnkadafi.acaraanbarengapps.model.EventParticipantModel;
 import com.squareup.picasso.Picasso;
 
 public class PostActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     StorageReference storageRef;
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference, databaseReferenceParticipan;
     StorageTask uploadTask;
 
     EditText edtNameEvent, edtLocation, edtDateStart, edtCost, edtQuotaParticipant;
@@ -56,6 +57,7 @@ public class PostActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         storageRef = FirebaseStorage.getInstance().getReference("uploads");
         databaseReference = FirebaseDatabase.getInstance().getReference("Events");
+        databaseReferenceParticipan = FirebaseDatabase.getInstance().getReference("EventParticipant");
 
         ivEvent = findViewById(R.id.ivEvent);
         edtNameEvent = findViewById(R.id.edtNameEvent);
@@ -138,6 +140,7 @@ public class PostActivity extends AppCompatActivity {
                                     Uri downloadUrl = uri;
 
                                     String eventId = databaseReference.push().getKey();
+                                    String eventParticipant = databaseReferenceParticipan.push().getKey();
 
                                     EventModel event = new EventModel(
                                             eventId, name, downloadUrl.toString(),
@@ -145,7 +148,12 @@ public class PostActivity extends AppCompatActivity {
                                             maxParticipant, requirement, description,
                                             "waiting", mAuth.getCurrentUser().getUid());
 
+                                    EventParticipantModel eventParticipantModel = new EventParticipantModel(
+                                            eventParticipant, eventId, mAuth.getCurrentUser().getUid()
+                                    );
+
                                     databaseReference.child(eventId).setValue(event);
+                                    databaseReferenceParticipan.child(eventParticipant).setValue(eventParticipantModel);
 
                                     Toast.makeText(PostActivity.this, "Event Posted Successfully", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(PostActivity.this, MainActivity.class));

@@ -62,8 +62,7 @@
                     android:id="@+id/edtNameEvent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Contoh: Liburan ke Jepang 7 Hari"
-                    android:text="Trip Singapura 3Hari 2Malam" />
+                    android:hint="Contoh: Liburan ke Jepang 7 Hari" />
 
                 <ImageView
                     android:id="@+id/ivEvent"
@@ -108,8 +107,7 @@
                     android:id="@+id/edtLocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Contoh: Kota Bandung"
-                    android:text="Kota Bandung" />
+                    android:hint="Contoh: Tokyo" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -136,9 +134,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/titleDateGo"
-                            android:hint="Contoh: 28-082022"
+                            android:hint="Contoh: 28-08-2022"
                             android:inputType="date"
-                            android:text="28-08-2022"
                             app:layout_widthPercent="50%" />
 
                     </androidx.percentlayout.widget.PercentRelativeLayout>
@@ -161,8 +158,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Contoh: 12.000.000"
-                            android:inputType="number"
-                            android:text="3.500.000" />
+                            android:inputType="number" />
 
                     </LinearLayout>
 
@@ -195,7 +191,6 @@
                             android:layout_below="@id/titleQuota"
                             android:hint="Contoh: 10"
                             android:inputType="numberDecimal"
-                            android:text="10"
                             app:layout_widthPercent="50%" />
 
                     </androidx.percentlayout.widget.PercentRelativeLayout>
@@ -218,8 +213,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Contoh: 5"
-                            android:inputType="numberDecimal"
-                            android:text="5" />
+                            android:inputType="numberDecimal" />
 
                     </LinearLayout>
 
@@ -237,8 +231,7 @@
                     android:id="@+id/edtRequirement"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Contoh: harus sudah vaksin"
-                    android:text="harus sudah vaksin" />
+                    android:hint="Contoh: harus sudah vaksin"/>
 
                 <TextView
                     style="@style/TextGunmetalNunitoBold24"
@@ -255,8 +248,7 @@
                     android:layout_marginBottom="20dp"
                     android:gravity="top"
                     android:hint="Contoh: rincian jadwal dan biaya sebagai berikut, hari pertama akan mengunjungi kota tokyo"
-                    android:inputType="textMultiLine"
-                    android:text="rincian jadwal dan biaya sebagai berikut, hari pertama akan mengunjungi kota tokyo" />
+                    android:inputType="textMultiLine"/>
 
                 <Button
                     android:id="@+id/btnAddPost"
