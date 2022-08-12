@@ -13,10 +13,10 @@
     app:startDestination="@+id/navigation_home">
 
     <fragment
-        android:id="@+id/navigation_daily"
-        android:name="com.mnkadafi.acaraanbarengapps.ui.SavedFragment"
+        android:id="@+id/navigation_saved"
+        android:name="com.mnkadafi.acaraanbarengapps.ui.BookmarkFragment"
         android:label="@string/title_saved"
-        tools:layout="@layout/fragment_saved" />
+        tools:layout="@layout/fragment_bookmark" />
 
     <fragment
         android:id="@+id/navigation_home"

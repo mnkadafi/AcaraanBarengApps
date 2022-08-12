@@ -5,7 +5,6 @@
     <string name="title_saved">Saved</string>
     <string name="title_home">Home</string>
     <string name="title_profile">Profile</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fullName">Full Name</string>
     <string name="location">Location</string>
@@ -13,8 +12,10 @@
     <string name="title_failed">Failed</string>
     <string name="total_success">0</string>
     <string name="total_failed">0</string>
-    <string name="subTitle">Finding places and holiday together without lonely!</string>
+    <string name="subTitle">Finding events and holidays together without loneliness!</string>
     <string name="greetings">Acaraan Bareng Apps</string>
     <string name="gender1">Laki-laki</string>
     <string name="gender2">Perempuan</string>
+    <string name="category">Category</string>
+    <string name="status">Status</string>
 </resources>

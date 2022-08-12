@@ -10,10 +10,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/homeFragment"
     android:background="@color/main_background"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".ui.BookmarkFragment">
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,37 +23,22 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="24dp">
-
-            <Button
-                android:id="@+id/btnAddPost"
-                android:layout_width="45dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:background="@drawable/ic_baseline_post_add_24"
-                android:backgroundTint="@color/black" />
+            android:padding="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Let's join or make an event"
-                android:textSize="16dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
                 android:layout_marginBottom="25dp"
-                android:text="Without loneliness!"
-                android:textSize="25dp" />
+                android:text="List Bookmark"
+                android:textSize="35dp" />
 
             <androidx.percentlayout.widget.PercentRelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp">
+                android:layout_height="wrap_content">
 
                 <EditText
                     android:id="@+id/etSearch"
@@ -72,19 +57,11 @@
 
             </androidx.percentlayout.widget.PercentRelativeLayout>
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerBookmark"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="50dp"
-                android:orientation="vertical">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerEvent"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:listitem="@layout/item_event" />
-
-            </LinearLayout>
+                tools:listitem="@layout/item_bookmark" />
 
         </LinearLayout>
 

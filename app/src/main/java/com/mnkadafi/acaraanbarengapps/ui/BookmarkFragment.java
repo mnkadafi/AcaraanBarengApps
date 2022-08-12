@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -26,64 +25,72 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.mnkadafi.acaraanbarengapps.BookmarkAdapter;
+import com.mnkadafi.acaraanbarengapps.BookmarkModel;
 import com.mnkadafi.acaraanbarengapps.DetailActivity;
-import com.mnkadafi.acaraanbarengapps.HomeAdapter;
 import com.mnkadafi.acaraanbarengapps.EventModel;
+import com.mnkadafi.acaraanbarengapps.HomeAdapter;
 import com.mnkadafi.acaraanbarengapps.PostActivity;
 import com.mnkadafi.acaraanbarengapps.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class BookmarkFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabaseReference;
 
     private RecyclerView mRecyclerEvent;
-    private HomeAdapter mHomeAdapter;
+    private BookmarkAdapter mBookmarkAdapter;
     private ValueEventListener mDBListener;
-
     private ProgressBar mProgressBar;
 
-    private List<EventModel> mItems = new ArrayList<>();
-    Button btnAddPost;
+    private List<BookmarkModel> mItems = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+
+        View root = inflater.inflate(R.layout.fragment_bookmark, container, false);
 
         mAuth = FirebaseAuth.getInstance();
-
         mProgressBar = root.findViewById(R.id.progressBar);
 
-        mRecyclerEvent = root.findViewById(R.id.recyclerEvent);
+        mRecyclerEvent = root.findViewById(R.id.recyclerBookmark);
         mRecyclerEvent.setHasFixedSize(true);
         mRecyclerEvent.setLayoutManager(new LinearLayoutManager(getParentFragment().getContext()));
 
-        mHomeAdapter = new HomeAdapter(getContext(), mItems);
-        mHomeAdapter.setOnItemClickListener(new HomeAdapter.OnItemClickListenerHome() {
+        mBookmarkAdapter = new BookmarkAdapter(getContext(), mItems);
+        mBookmarkAdapter.setOnItemClickListener(new BookmarkAdapter.OnItemClickListenerBookmark() {
             @Override
             public void detailClick(int position) {
                 detailEvent(mItems.get(position));
             }
         });
-        mRecyclerEvent.setAdapter(mHomeAdapter);
+        mRecyclerEvent.setAdapter(mBookmarkAdapter);
 
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference("Events");
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference("BookmarkEvent");
         mDBListener = mDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 mItems.clear();
 
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                    EventModel eventModel = postSnapshot.getValue(EventModel.class);
-                    mItems.add(eventModel);
+                    BookmarkModel bookmarkModel = postSnapshot.getValue(BookmarkModel.class);
+
+                    String bookmarkId = bookmarkModel.getBookmarkId();
+                    String idUser = bookmarkModel.getIdUser();
+                    String idEvent = bookmarkModel.getIdEvent();
+                    String nameEvent = bookmarkModel.getEventName();
+                    String category = bookmarkModel.getCategory();
+                    String imageUrl = bookmarkModel.getImageUrl();
+
+                    BookmarkModel newData = new BookmarkModel(bookmarkId, idUser, idEvent, nameEvent, category, imageUrl);
+                    mItems.add(bookmarkModel);
                 }
 
-                mHomeAdapter.notifyDataSetChanged();
+                mBookmarkAdapter.notifyDataSetChanged();
                 mProgressBar.setVisibility(View.INVISIBLE);
             }
 
@@ -94,22 +101,13 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        btnAddPost = root.findViewById(R.id.btnAddPost);
-
-        btnAddPost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), PostActivity.class));
-            }
-        });
-
         return root;
     }
 
-    private void detailEvent(EventModel eventModel) {
-        Intent detailIntent = new Intent(getActivity(), DetailActivity.class);
-        detailIntent.putExtra("eventDetail", eventModel);
-        startActivity(detailIntent);
+    private void detailEvent(BookmarkModel bookmarkModel) {
+//        Intent detailIntent = new Intent(getActivity(), DetailActivity.class);
+//        detailIntent.putExtra("eventDetail", bookmarkModel);
+//        startActivity(detailIntent);
     }
 
     @Override

@@ -5,208 +5,286 @@
 <!--Nama : Mochamad Nurkhayal Kadafi-->
 <!--Kelas: IF-5-->
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".LoginActivity">
+    tools:context=".PostActivity">
 
-    <RelativeLayout
+    <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:paddingBottom="26dp"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginRight="24dp"
-            android:orientation="vertical">
-
-            <Button
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/ic_baseline_arrow_back_24"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/nunito_bold"
-                android:textColor="@color/colorBlack87"
-                android:text="Post Your Event"
-                android:textSize="25dp" />
-
-            <TextView
-                style="@style/TextGunmetalNunitoBold24"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="50dp"
-                android:text="Nama Acara" />
-
-            <EditText
-                android:id="@+id/txtNamaLengkap"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Contoh: Liburan ke Jepang 7 Hari" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:paddingBottom="26dp"
+            tools:ignore="MissingConstraints">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="24dp"
+                android:orientation="vertical">
 
-                <android.support.percent.PercentRelativeLayout
+                <Button
+                    android:id="@+id/btnBackHome"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/ic_baseline_arrow_back_24" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/nunito_bold"
+                    android:text="Post Your Event"
+                    android:textColor="@color/colorBlack87"
+                    android:textSize="25dp" />
+
+                <TextView
+                    style="@style/TextGunmetalNunitoBold24"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Nama Acara" />
 
-                    <TextView
-                        android:id="@+id/titleTglBerangkat"
-                        style="@style/TextGunmetalNunitoBold24"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="2dp"
-                        android:layout_marginTop="10dp"
-                        app:layout_widthPercent="50%"
-                        android:text="Tgl. Berangkat" />
+                <EditText
+                    android:id="@+id/edtNameEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Contoh: Liburan ke Jepang 7 Hari"
+                    android:text="Trip Singapura 3Hari 2Malam" />
 
-                    <EditText
-                        android:id="@+id/txtTglBerangkat"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        app:layout_widthPercent="50%"
-                        android:layout_below="@id/titleTglBerangkat"
-                        android:hint="Contoh: 28-082022" />
+                <ImageView
+                    android:id="@+id/ivEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="230dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/round_outline"
+                    android:clipToOutline="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/blank_img" />
 
-                </android.support.percent.PercentRelativeLayout>
+                <Button
+                    android:id="@+id/btnUploadImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Upload Foto Acara"
+                    android:textColorHint="@color/white" />
+
+                <TextView
+                    style="@style/TextGunmetalNunitoBold24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Kategori" />
+
+                <Spinner
+                    android:id="@+id/spCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:entries="@array/list_category"></Spinner>
+
+                <TextView
+                    style="@style/TextGunmetalNunitoBold24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Lokasi" />
+
+                <EditText
+                    android:id="@+id/edtLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Contoh: Kota Bandung"
+                    android:text="Kota Bandung" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-                    <TextView
-                        style="@style/TextGunmetalNunitoBold24"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="2dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Biaya" />
-
-                    <EditText
-                        android:id="@+id/txtBiaya"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Contoh: 12.000.000" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <android.support.percent.PercentRelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/titleKuota"
-                        style="@style/TextGunmetalNunitoBold24"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        app:layout_widthPercent="50%"
-                        android:layout_marginStart="2dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Kuota Peserta" />
-
-                    <EditText
-                        android:id="@+id/txtKuotaPeserta"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        app:layout_widthPercent="50%"
-                        android:layout_below="@id/titleKuota"
-                        android:hint="Contoh: 10" />
-
-                </android.support.percent.PercentRelativeLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/TextGunmetalNunitoBold24"
+                    <androidx.percentlayout.widget.PercentRelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="2dp"
-                        android:layout_marginTop="10dp"
-                        android:text="Minimal Peserta" />
+                        android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/txtMinimalPeserta"
-                        android:layout_width="match_parent"
+                        <TextView
+                            android:id="@+id/titleDateGo"
+                            style="@style/TextGunmetalNunitoBold24"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginTop="10dp"
+                            android:text="Tgl. Berangkat"
+                            app:layout_widthPercent="50%" />
+
+                        <EditText
+                            android:id="@+id/edtDateStart"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/titleDateGo"
+                            android:hint="Contoh: 28-082022"
+                            android:inputType="date"
+                            android:text="28-08-2022"
+                            app:layout_widthPercent="50%" />
+
+                    </androidx.percentlayout.widget.PercentRelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="Contoh: 5" />
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextGunmetalNunitoBold24"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginTop="10dp"
+                            android:text="Estimasi Biaya" />
+
+                        <EditText
+                            android:id="@+id/edtCost"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Contoh: 12.000.000"
+                            android:inputType="number"
+                            android:text="3.500.000" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <androidx.percentlayout.widget.PercentRelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/titleQuota"
+                            style="@style/TextGunmetalNunitoBold24"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginTop="10dp"
+                            android:text="Maksimal Orang"
+                            app:layout_widthPercent="50%" />
+
+                        <EditText
+                            android:id="@+id/edtQuotaParticipant"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/titleQuota"
+                            android:hint="Contoh: 10"
+                            android:inputType="numberDecimal"
+                            android:text="10"
+                            app:layout_widthPercent="50%" />
+
+                    </androidx.percentlayout.widget.PercentRelativeLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/TextGunmetalNunitoBold24"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginTop="10dp"
+                            android:text="Minimal Orang" />
+
+                        <EditText
+                            android:id="@+id/edtMinimalParticipant"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Contoh: 5"
+                            android:inputType="numberDecimal"
+                            android:text="5" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    style="@style/TextGunmetalNunitoBold24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Syarat" />
+
+                <EditText
+                    android:id="@+id/edtRequirement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Contoh: harus sudah vaksin"
+                    android:text="harus sudah vaksin" />
+
+                <TextView
+                    style="@style/TextGunmetalNunitoBold24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Deskripsi Acara" />
+
+                <EditText
+                    android:id="@+id/edtDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="top"
+                    android:hint="Contoh: rincian jadwal dan biaya sebagai berikut, hari pertama akan mengunjungi kota tokyo"
+                    android:inputType="textMultiLine"
+                    android:text="rincian jadwal dan biaya sebagai berikut, hari pertama akan mengunjungi kota tokyo" />
+
+                <Button
+                    android:id="@+id/btnAddPost"
+                    style="@style/ButtonYellowRounded18RubikMedium14Black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="30dp"
+                    android:paddingStart="50dp"
+                    android:paddingEnd="50dp"
+                    android:text="Post Event"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white" />
+
             </LinearLayout>
 
-            <TextView
-                style="@style/TextGunmetalNunitoBold24"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="10dp"
-                android:text="Syarat" />
+        </RelativeLayout>
+    </ScrollView>
 
-            <EditText
-                android:id="@+id/txtSyarat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txtUsername"
-                android:hint="Contoh: harus sudah vaksin" />
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
 
-            <TextView
-                style="@style/TextGunmetalNunitoBold24"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="10dp"
-                android:text="Deskripsi Acara" />
-
-            <EditText
-                android:id="@+id/txtDeskripsi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txtUsername"
-                android:gravity="top"
-                android:inputType="textMultiLine"
-                android:minLines="5"
-                android:hint="Contoh: rincian jadwal dan biaya sebagai berikut, hari pertama akan mengunjungi kota tokyo" />
-
-            <Button
-                android:id="@+id/btnRegister"
-                style="@style/ButtonYellowRounded18RubikMedium14Black"
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:layout_gravity="center"
-                android:paddingStart="50dp"
-                android:paddingEnd="50dp"
-                android:text="Register"
-                android:textAllCaps="true"
-                android:textColor="@color/white" />
-
-        </LinearLayout>
-    </RelativeLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

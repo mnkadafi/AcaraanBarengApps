@@ -1,0 +1,8 @@
+<resources>
+    <string-array name="list_category">
+        <item>Travel</item>
+        <item>Sport</item>
+        <item>Mountain</item>
+        <item>Playground</item>
+    </string-array>
+</resources>

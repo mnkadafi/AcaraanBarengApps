@@ -5,67 +5,201 @@ package com.mnkadafi.acaraanbarengapps.ui;
 // Nama : Mochamad Nurkhayal Kadafi
 // Kelas: IF-5
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.mnkadafi.acaraanbarengapps.DetailActivity;
+import com.mnkadafi.acaraanbarengapps.EventModel;
+import com.mnkadafi.acaraanbarengapps.HomeAdapter;
+import com.mnkadafi.acaraanbarengapps.LoginActivity;
+import com.mnkadafi.acaraanbarengapps.MainActivity;
+import com.mnkadafi.acaraanbarengapps.PostActivity;
+import com.mnkadafi.acaraanbarengapps.ProfileAdapter;
 import com.mnkadafi.acaraanbarengapps.R;
+import com.mnkadafi.acaraanbarengapps.User;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProfileFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabaseReference;
+    private FirebaseStorage mFirebaseStorage;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private RecyclerView mRecyclerHistory;
+    private ProfileAdapter mProfileAdapter;
+    private ValueEventListener mDBListener;
 
-    public ProfileFragment() {
-        // Required empty public constructor
-    }
+    private ProgressBar mProgressBar;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ProfileFragment newInstance(String param1, String param2) {
-        ProfileFragment fragment = new ProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private List<EventModel> mItems = new ArrayList<>();
+    private User userDetail;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+
+    private TextView tvFullname, tvLocation;
+    private Button btnLogout, btnParticipant, btnEdit, btnDelete;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View root = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        mAuth = FirebaseAuth.getInstance();
+
+        tvFullname = root.findViewById(R.id.tvFullName);
+        tvLocation = root.findViewById(R.id.tvLocation);
+
+        getProfile();
+
+        btnParticipant = root.findViewById(R.id.btnParticipant);
+        btnEdit = root.findViewById(R.id.btnEdit);
+        btnDelete = root. findViewById(R.id.btnDelete);
+        btnLogout = root.findViewById(R.id.btnLogout);
+
+        mRecyclerHistory = root.findViewById(R.id.recyclerHistory);
+        mRecyclerHistory.setHasFixedSize(true);
+        mRecyclerHistory.setLayoutManager(new LinearLayoutManager(getParentFragment().getContext()));
+
+        mProfileAdapter = new ProfileAdapter(getContext(), mItems);
+        mProfileAdapter.setOnItemClickListener(new ProfileAdapter.OnItemClickListener() {
+
+            @Override
+            public void detailClick(int position) {
+                detailEvent(mItems.get(position));
+            }
+
+            @Override
+            public void showParticipantClick(int position) {
+                showParticipant(position);
+            }
+
+            @Override
+            public void editClick(int position) {
+                editEvent(position);
+            }
+
+            @Override
+            public void deleteClick(int position) {
+                deleteEvent(position);
+            }
+        });
+
+        mRecyclerHistory.setAdapter(mProfileAdapter);
+
+        mFirebaseStorage = FirebaseStorage.getInstance();
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference("Events");
+        mDBListener = mDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                mItems.clear();
+
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    EventModel eventModel = postSnapshot.getValue(EventModel.class);
+                    eventModel.setKey(postSnapshot.getKey());
+                    mItems.add(eventModel);
+                }
+
+                mProfileAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logout();
+            }
+        });
+
+        return root;
+    }
+
+    private void detailEvent(EventModel eventModel) {
+        Intent detailIntent = new Intent(getActivity(), DetailActivity.class);
+        detailIntent.putExtra("eventDetail", eventModel);
+        startActivity(detailIntent);
+    }
+
+    private void showParticipant(int position) {
+
+    }
+
+    private void editEvent(int position) {
+
+    }
+
+    private void deleteEvent(int position) {
+        EventModel selectedItem = mItems.get(position);
+        String selectedKey = selectedItem.getKey();
+
+        StorageReference imageRef = mFirebaseStorage.getReferenceFromUrl(selectedItem.getImageUrl());
+        imageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                mDatabaseReference.child(selectedKey).removeValue();
+                Toast.makeText(getActivity(), "Event Deleted Successfully", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getProfile() {
+        String userID = mAuth.getCurrentUser().getUid();
+        DatabaseReference userData = FirebaseDatabase.getInstance().getReference("Users");
+        userData.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User dataUser = snapshot.getValue(User.class);
+
+                tvFullname.setText(dataUser.getFullName());
+                tvLocation.setText(dataUser.getLocation());
+
+                userDetail = dataUser;
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mDatabaseReference.removeEventListener(mDBListener);
+    }
+
+    private void logout() {
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
     }
 }

@@ -16,17 +16,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
+        android:padding="24dp"
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/btnLogout"
             android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/ic_baseline_logout_24"
-            android:backgroundTint="@color/black" />
+            android:layout_marginTop="25dp"
+            android:background="@drawable/ic_baseline_logout_24" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,6 +42,7 @@
                 android:layout_gravity="center" />
 
             <TextView
+                android:id="@+id/tvFullName"
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,6 +53,7 @@
                 android:fontFamily="@font/nunito_bold" />
 
             <TextView
+                android:id="@+id/tvLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/location"
@@ -123,14 +124,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="50dp"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="History Event"
+                android:text="Recent Event"
                 android:textColor="@color/black"
                 android:textSize="20sp"
+                android:textAlignment="center"
                 android:fontFamily="@font/nunito_bold" />
 
             <View
@@ -138,10 +141,11 @@
                 android:layout_height="2dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:layout_gravity="center"
                 android:background="@color/black" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_history"
+                android:id="@+id/recyclerHistory"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:listitem="@layout/item_history"/>

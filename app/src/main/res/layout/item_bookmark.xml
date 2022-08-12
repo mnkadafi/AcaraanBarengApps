@@ -13,7 +13,7 @@
     android:background="@drawable/rounded_background_event">
 
     <ImageView
-        android:id="@+id/ivSaved"
+        android:id="@+id/ivBookmark"
         android:layout_width="100dp"
         android:layout_height="80dp"
         android:src="@drawable/blank_img"
@@ -29,7 +29,7 @@
 
         <TextView
             android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/title"
             android:maxLines="2"
@@ -39,10 +39,10 @@
             android:fontFamily="@font/nunito_bold"/>
 
         <TextView
-            android:id="@+id/tvDescription"
+            android:id="@+id/tvCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/description"
+            android:text="@string/category"
             android:maxLines="2"
             android:layout_marginRight="15dp"
             android:layout_marginBottom="15dp"
