@@ -18,8 +18,8 @@
             app:layout_constraintEnd_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/bromo"
-            android:scaleType="centerCrop"
+            android:src="@drawable/login_image"
+            android:scaleType="centerInside"
             />
 
         <LinearLayout
@@ -30,11 +30,14 @@
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp">
 
-            <Button
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:text="Get Started"
-                android:layout_marginBottom="50dp"/>
+                android:layout_height="wrap_content"
+                android:text="Hi, Welcome Back!"
+                android:textAlignment="center"
+                android:layout_marginBottom="40dp"
+                android:textSize="25dp"
+                android:fontFamily="@font/nunito_bold"/>
         </LinearLayout>
 
     </RelativeLayout>

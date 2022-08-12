@@ -76,7 +76,7 @@ public class DetailActivity extends AppCompatActivity {
                 .centerCrop()
                 .into(ivEvent);
 
-        getProfile();
+        getProfile(eventDetail.getIdUser());
         tvCategory.setText(eventDetail.getCategory());
         tvEvent.setText(eventDetail.getEventName());
         tvLocation.setText(eventDetail.getLocation());
@@ -228,10 +228,9 @@ public class DetailActivity extends AppCompatActivity {
         });
     }
 
-    private void getProfile() {
-        String userID = mAuth.getCurrentUser().getUid();
+    private void getProfile(String userId) {
         DatabaseReference userData = FirebaseDatabase.getInstance().getReference("Users");
-        userData.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+        userData.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User dataUser = snapshot.getValue(User.class);
