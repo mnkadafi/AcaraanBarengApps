@@ -39,6 +39,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
     public void onBindViewHolder(@NonNull HomeHolder holder, @SuppressLint("RecyclerView") int position) {
         EventModel eventModel = mList.get(position);
         holder.textViewTitle.setText(eventModel.getEventName());
+        holder.textViewLocation.setText(eventModel.getLocation());
         holder.textViewCategory.setText(eventModel.getCategory());
         Picasso.with(mContext)
                 .load(eventModel.getImageUrl())
@@ -62,6 +63,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
 
     public class HomeHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView textViewTitle;
+        public TextView textViewLocation;
         public TextView textViewCategory;
         public ImageView imageViewEvent;
 
@@ -69,6 +71,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
             super(itemView);
 
             textViewTitle = itemView.findViewById(R.id.tvTitle);
+            textViewLocation = itemView.findViewById(R.id.tvLocation);
             textViewCategory = itemView.findViewById(R.id.tvCategory);
             imageViewEvent = itemView.findViewById(R.id.ivEvent);
 

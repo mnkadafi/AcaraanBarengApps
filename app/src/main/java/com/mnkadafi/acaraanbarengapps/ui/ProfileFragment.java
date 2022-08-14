@@ -116,6 +116,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 mItems.clear();
+                totalEvent = 0;
 
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     EventModel eventModel = postSnapshot.getValue(EventModel.class);

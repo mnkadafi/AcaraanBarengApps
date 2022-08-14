@@ -213,22 +213,6 @@ public class PostActivity extends AppCompatActivity {
             imageUri = data.getData();
 
             Picasso.with(this).load(imageUri).into(ivEvent);
-
-//            final Uri path = data.getData();
-//            Thread thread = new Thread(() -> {
-//               try {
-//                   InputStream inputStream = getContentResolver().openInputStream(path);
-//                   Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-//                   imageUri = data.getData();
-//
-//                   ivEvent.post(() -> {
-//                      ivEvent.setImageBitmap(bitmap);
-//                   });
-//               } catch (IOException e) {
-//                   e.printStackTrace();
-//               }
-//            });
-//            thread.start();
         }
     }
 }
