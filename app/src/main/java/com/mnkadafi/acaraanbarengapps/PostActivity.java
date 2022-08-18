@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
@@ -13,6 +14,7 @@ import android.os.Handler;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -33,6 +35,10 @@ import com.mnkadafi.acaraanbarengapps.model.EventModel;
 import com.mnkadafi.acaraanbarengapps.model.EventParticipantModel;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class PostActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
@@ -44,9 +50,10 @@ public class PostActivity extends AppCompatActivity {
     EditText edtMinimalParticipant, edtRequirement, edtDescription;
     Spinner spCategory;
     ImageView ivEvent;
-    Button btnBackHome, btnUploadImage, btnAddPost;
+    Button btnBackHome, btnUploadImage, btnSelectDateGo, btnAddPost;
     ProgressBar progressBar;
     private Uri imageUri;
+    private int mYear,mMonth,mDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +65,24 @@ public class PostActivity extends AppCompatActivity {
         storageRef = FirebaseStorage.getInstance().getReference("uploads");
         databaseReference = FirebaseDatabase.getInstance().getReference("Events");
         databaseReferenceParticipan = FirebaseDatabase.getInstance().getReference("EventParticipant");
+
+        final Calendar myCalendar = Calendar.getInstance();
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener()
+        {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                String myFormat = "yyyy-MM-dd"; //In which you need put here
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+                edtDateStart.setText(sdf.format(myCalendar.getTime()));
+            }
+
+        };
 
         ivEvent = findViewById(R.id.ivEvent);
         edtNameEvent = findViewById(R.id.edtNameEvent);
@@ -73,8 +98,48 @@ public class PostActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
 
         btnUploadImage = findViewById(R.id.btnUploadImage);
+        btnSelectDateGo = findViewById(R.id.btnSelectDateGo);
         btnBackHome = findViewById(R.id.btnBackHome);
         btnAddPost = findViewById(R.id.btnAddPost);
+
+        btnSelectDateGo.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                final Calendar c = Calendar.getInstance();
+                mYear = c.get(Calendar.YEAR);
+                mMonth = c.get(Calendar.MONTH);
+                mDay = c.get(Calendar.DAY_OF_MONTH);
+
+                // Launch Date Picker Dialog
+                DatePickerDialog dpd = new DatePickerDialog(PostActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                // Display Selected date in textbox
+
+                                if (year < mYear)
+                                    view.updateDate(mYear,mMonth,mDay);
+
+                                if (monthOfYear < mMonth && year == mYear)
+                                    view.updateDate(mYear,mMonth,mDay);
+
+                                if (dayOfMonth < mDay && year == mYear && monthOfYear == mMonth)
+                                    view.updateDate(mYear,mMonth,mDay);
+
+                                edtDateStart.setText(dayOfMonth + "-"
+                                        + (monthOfYear + 1) + "-" + year);
+
+                            }
+                        }, mYear, mMonth, mDay);
+                dpd.getDatePicker().setMinDate(System.currentTimeMillis());
+                dpd.show();
+
+            }
+        });
 
         btnBackHome.setOnClickListener(new View.OnClickListener() {
             @Override

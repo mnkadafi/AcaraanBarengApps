@@ -1,6 +1,9 @@
 package com.mnkadafi.acaraanbarengapps.model;
 
-public class BookmarkModel {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class BookmarkModel implements Parcelable {
      private String bookmarkId;
      private String idUser;
      private String idEvent;
@@ -23,6 +26,27 @@ public class BookmarkModel {
         this.imageUrl = imageUrl;
      }
 
+    protected BookmarkModel(Parcel in) {
+        bookmarkId = in.readString();
+        idUser = in.readString();
+        idEvent = in.readString();
+        eventName = in.readString();
+        category = in.readString();
+        imageUrl = in.readString();
+    }
+
+    public static final Creator<BookmarkModel> CREATOR = new Creator<BookmarkModel>() {
+        @Override
+        public BookmarkModel createFromParcel(Parcel in) {
+            return new BookmarkModel(in);
+        }
+
+        @Override
+        public BookmarkModel[] newArray(int size) {
+            return new BookmarkModel[size];
+        }
+    };
+
      public String getBookmarkId() { return bookmarkId; }
      public String getIdUser() { return idUser; }
      public String getIdEvent() { return idEvent; }
@@ -36,4 +60,19 @@ public class BookmarkModel {
      public void setEventName() { this.eventName = eventName; }
      public void setCategory() { this.category = category; }
      public void setImageUrl() { this.imageUrl = imageUrl; }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(bookmarkId);
+        parcel.writeString(idUser);
+        parcel.writeString(idEvent);
+        parcel.writeString(eventName);
+        parcel.writeString(category);
+        parcel.writeString(imageUrl);
+    }
 }

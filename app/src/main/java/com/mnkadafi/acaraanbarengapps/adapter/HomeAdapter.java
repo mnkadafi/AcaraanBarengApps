@@ -27,6 +27,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeHolder> {
         this.mContext = mContext;
     }
 
+    public void filterList(List<EventModel> mItemsFiltered) {
+        mList = mItemsFiltered;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public HomeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

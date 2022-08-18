@@ -112,55 +112,47 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <androidx.percentlayout.widget.PercentRelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/titleDateGo"
-                            style="@style/TextGunmetalNunitoBold24"
-                            android:layout_width="0dp"
+                        <Button
+                            android:id="@+id/btnSelectDateGo"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="2dp"
                             android:layout_marginTop="10dp"
-                            android:text="Tgl. Berangkat"
-                            app:layout_widthPercent="50%" />
+                            android:text="Pilih Tgl Acara"
+                            android:textSize="12dp"
+                            android:textAllCaps="false"/>
 
                         <EditText
                             android:id="@+id/edtDateStart"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/titleDateGo"
-                            android:hint="Contoh: 28-08-2022"
-                            android:inputType="date"
-                            app:layout_widthPercent="50%" />
+                            android:layout_below="@id/btnSelectDateGo"
+                            android:hint="Contoh: 28-8-2022"
+                            android:editable="false"/>
 
-                    </androidx.percentlayout.widget.PercentRelativeLayout>
+                </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextGunmetalNunitoBold24"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_marginStart="2dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Estimasi Biaya" />
 
-                        <TextView
-                            style="@style/TextGunmetalNunitoBold24"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="2dp"
-                            android:layout_marginTop="10dp"
-                            android:text="Estimasi Biaya" />
-
-                        <EditText
-                            android:id="@+id/edtCost"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Contoh: 12.000.000"
-                            android:inputType="number" />
-
-                    </LinearLayout>
+                    <EditText
+                        android:id="@+id/edtCost"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Contoh: 12.000.000"
+                        android:inputType="number" />
 
                 </LinearLayout>
 

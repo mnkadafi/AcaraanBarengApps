@@ -21,4 +21,5 @@
     <string name="title_total">Total</string>
     <string name="phone">Phone</string>
     <string name="title_bookmark">Bookmark</string>
+    <string name="informationData">Sorry, we don\'t have the event you want to show yet. You can create your own events.</string>
 </resources>

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mnkadafi.acaraanbarengapps.R;
 import com.mnkadafi.acaraanbarengapps.model.BookmarkModel;
+import com.mnkadafi.acaraanbarengapps.model.EventModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -25,6 +26,11 @@ public class BookmarkAdapter extends RecyclerView.Adapter<BookmarkAdapter.Bookma
     public BookmarkAdapter(Context mContext, List<BookmarkModel> mList) {
         this.mList = mList;
         this.mContext = mContext;
+    }
+
+    public void filterList(List<BookmarkModel> mItemsFiltered) {
+        mList = mItemsFiltered;
+        notifyDataSetChanged();
     }
 
     @NonNull

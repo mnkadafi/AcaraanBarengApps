@@ -56,7 +56,7 @@
                 android:layout_marginBottom="20dp">
 
                 <EditText
-                    android:id="@+id/etSearch"
+                    android:id="@+id/edtSearch"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="Search event..."
@@ -66,7 +66,7 @@
                     android:id="@+id/ivSearch"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
-                    android:layout_toRightOf="@id/etSearch"
+                    android:layout_toRightOf="@id/edtSearch"
                     android:src="@drawable/ic_baseline_search_24"
                     app:layout_widthPercent="10%" />
 
@@ -77,6 +77,21 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="50dp"
                 android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvInformation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="24dp"
+                        android:text="@string/informationData"
+                        android:textAlignment="center"
+                        android:visibility="gone"/>
+
+                </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerEvent"

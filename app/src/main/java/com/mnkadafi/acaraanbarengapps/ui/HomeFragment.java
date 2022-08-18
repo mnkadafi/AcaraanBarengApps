@@ -13,11 +13,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,6 +49,8 @@ public class HomeFragment extends Fragment {
     private ValueEventListener mDBListener;
 
     private ProgressBar mProgressBar;
+    private EditText edtSearch;
+    private TextView tvInformation;
 
     private List<EventModel> mItems = new ArrayList<>();
     Button btnAddPost;
@@ -57,7 +63,10 @@ public class HomeFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
 
+        btnAddPost = root.findViewById(R.id.btnAddPost);
         mProgressBar = root.findViewById(R.id.progressBar);
+        edtSearch = root.findViewById(R.id.edtSearch);
+        tvInformation = root.findViewById(R.id.tvInformation);
 
         mRecyclerEvent = root.findViewById(R.id.recyclerEvent);
         mRecyclerEvent.setHasFixedSize(true);
@@ -94,7 +103,22 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        btnAddPost = root.findViewById(R.id.btnAddPost);
+        edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                filter(editable.toString());
+            }
+        });
 
         btnAddPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +128,24 @@ public class HomeFragment extends Fragment {
         });
 
         return root;
+    }
+
+    private void filter(String text) {
+        List<EventModel> mItemsFiltered = new ArrayList<>();
+
+        for(EventModel mItem : mItems) {
+            if(mItem.getEventName().toLowerCase().contains(text.toLowerCase())) {
+                mItemsFiltered.add(mItem);
+
+                tvInformation.setVisibility(View.GONE);
+                mRecyclerEvent.setVisibility(View.VISIBLE);
+            } else {
+                tvInformation.setVisibility(View.VISIBLE);
+                mRecyclerEvent.setVisibility(View.GONE);
+            }
+        }
+
+        mHomeAdapter.filterList(mItemsFiltered);
     }
 
     private void detailEvent(EventModel eventModel) {

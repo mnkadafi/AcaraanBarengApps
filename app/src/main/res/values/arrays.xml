@@ -2,6 +2,8 @@
     <string-array name="list_category">
         <item>Travel</item>
         <item>Sport</item>
+        <item>Museum</item>
+        <item>Concert</item>
         <item>Mountain</item>
         <item>Playground</item>
     </string-array>
